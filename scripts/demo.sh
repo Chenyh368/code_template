@@ -1,0 +1,1 @@
+python ./python_scripts/train.py --run_name cifar10 --mode train --gpu 4,6 --dataset_dir cifar10 --json_path ./config/demo_cifar10.json
