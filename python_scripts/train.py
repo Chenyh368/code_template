@@ -24,16 +24,18 @@ def run(rank, n_gpus, opt, manager):
     manager.set_rank(rank)
     manager._setup_seed()
     manager._setup_logger(logging.DEBUG if rank in [-1, 0] else logging.WARN)
-    if manager.is_master():
-        manager._third_party_tools = ('tensorboard',)
-        # Set up tensorboard in master (rank == 0)
-        manager._setup_third_party_tools()
 
     logger = manager.get_logger()
     logger.info(f"======> N gpus / World size: {n_gpus}")
     logger.info(f"======> Log in Process: {rank}")
 
     dist.init_process_group(backend='nccl', init_method='env://', world_size=n_gpus, rank=rank)
+
+    # ========= Training ===============
+    if manager.is_master():
+        manager._third_party_tools = ('tensorboard',)
+        # Set up tensorboard in master (rank == 0)
+        manager._setup_third_party_tools()
 
     if rank == 1:
         print(opt.train.demo)

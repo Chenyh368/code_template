@@ -53,6 +53,7 @@ class Options():
 
         # Get json config
         opt, _ = parser.parse_known_args()
+        # TODO: Adding YAML
         if opt.load_json:
             with open(opt.json_path, "r") as f:
                 js = f.read()

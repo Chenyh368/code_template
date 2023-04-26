@@ -14,13 +14,14 @@ class BaseDataset(data.Dataset, ABC):
     -- <__getitem__>:                   get a data point.
     -- <modify_commandline_options>:    (optionally) add dataset-specific options and set default options.
     """
-    def __init__(self, opt):
+    def __init__(self, opt, manager):
         """Initialize the class; save the options in the class
 
         Parameters:
             opt (Option class)-- stores all the experiment flags; needs to be a subclass of BaseOptions
         """
         self.opt = opt
+        self.logger = manager.get_logger()
 
     @staticmethod
     def modify_commandline_options(parser, mode):
